@@ -1,0 +1,6 @@
+apispring-backend/products/mvnw text eol=lf
+apispring-backend/products/*.cmd text eol=crlf
+
+
+apispring-backend/categories/mvnw text eol=lf
+apispring-backend/categories/*.cmd text eol=crlf

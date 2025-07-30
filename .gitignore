@@ -1,0 +1,76 @@
+# -------------------------
+# GLOBAL IGNORE
+# -------------------------
+.DS_Store
+*.log
+*.tmp
+*.swp
+*.bak
+*.orig
+.idea/
+.vscode/
+.env
+.env.local
+
+# -------------------------
+# JAVA GENERAL
+# -------------------------
+*.class
+*.jar
+*.war
+*.ear
+*.iml
+
+# -------------------------
+# ANGULAR (frontend)
+# -------------------------
+apispring-frontend/node_modules/
+apispring-frontend/dist/
+apispring-frontend/tmp
+apispring-frontend/out-tsc
+apispring-frontend/bazel-out
+apispring-frontend/.angular/
+apispring-frontend/.env
+
+# IDEs
+apispring-frontend/.vscode/
+apispring-frontend/.DS_Store
+
+# -------------------------
+# SPRING BOOT (backend)
+# -------------------------
+apispring-backend/products/target/
+apispring-backend/products/.classpath
+apispring-backend/products/.project
+apispring-backend/products/.settings/
+apispring-backend/products/.env
+
+# IDEs (Eclipse/IntelliJ/NetBeans/etc.)
+apispring-backend/products/.idea/
+apispring-backend/products/.vscode/
+apispring-backend/products/.DS_Store
+apispring-backend/products/.mvn/
+apispring-backend/products/mvnw
+apispring-backend/products/mvnw.cmd
+
+# Log files
+apispring-backend/products/*.log
+
+
+
+apispring-backend/categories/target/
+apispring-backend/categories/.classpath
+apispring-backend/categories/.project
+apispring-backend/categories/.settings/
+apispring-backend/categories/.env
+
+# IDEs (Eclipse/IntelliJ/NetBeans/etc.)
+apispring-backend/categories/.idea/
+apispring-backend/categories/.vscode/
+apispring-backend/categories/.DS_Store
+apispring-backend/categories/.mvn/
+apispring-backend/categories/mvnw
+apispring-backend/categories/mvnw.cmd
+
+# Log files
+apispring-backend/categories/*.log
