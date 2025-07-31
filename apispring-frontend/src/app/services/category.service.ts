@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { catchError, throwError } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { Category } from '../models/category.model';
 import { environment } from '../environment';
 
@@ -46,6 +46,10 @@ export class CategoryService {
 
   getCategories() {
     return this.categories.asReadonly();
+  }
+
+  getCategoriesAsObservable(): Observable<Category[]> {
+    return this.http.get<Category[]>(this.apiUrl);
   }
 
   addCategory(category: Omit<Category, 'id' | 'createdAt'>) {

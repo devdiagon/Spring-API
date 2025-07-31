@@ -111,6 +111,22 @@
   background-color: #3E2723;
 }
 
+select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #D7CCC8;
+  border-radius: 4px;
+  font-size: 1rem;
+  margin-top: 0.25rem;
+  background-color: white;
+}
+
+select:focus {
+  outline: none;
+  border-color: #5D4037;
+}
+
+
 @media (max-width: 768px) {
   .modal-container {
     width: 95%;

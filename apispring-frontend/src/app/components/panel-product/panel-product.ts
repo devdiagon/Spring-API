@@ -18,7 +18,7 @@ export class PanelProduct {
 
   products = this.productService.getProducts();
 
-  headers = ['ID', 'Nombre', 'Descripción', 'Precio', 'Acción'];
+  headers = ['ID', 'Nombre', 'Descripción', 'Precio', 'Categoría', 'Acción'];
 
   openAddModal() {
     this.modalService.openModal('product');

@@ -1,8 +1,9 @@
 import { Injectable, signal } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { catchError, throwError } from 'rxjs';
+import { catchError, forkJoin, throwError } from 'rxjs';
 import { Product } from '../models/product.model';
 import { environment } from '../environment';
+import { CategoryService } from './category.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class ProductService {
   private loading = signal(false);
   private error = signal<string | null>(null);
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private categoryService: CategoryService) {
     this.fetchProducts();
   }
 
@@ -29,6 +30,7 @@ export class ProductService {
     return throwError(() => new Error(errorMessage));
   }
 
+  /*
   fetchProducts() {
     this.loading.set(true);
     this.http.get<Product[]>(this.apiUrl)
@@ -42,6 +44,33 @@ export class ProductService {
         },
         error: () => this.loading.set(false)
       });
+  }*/
+
+  fetchProducts() {
+  this.loading.set(true);
+
+  forkJoin({
+    products: this.http.get<Product[]>(this.apiUrl),
+    categories: this.categoryService.getCategoriesAsObservable()
+    })
+    .pipe(
+      catchError(this.handleError.bind(this))
+    )
+    .subscribe({
+      next: ({ products, categories }) => {
+        const enriched = products.map(product => {
+          const category = categories.find(c => c.id === product.categoryId);
+          return {
+            ...product,
+            category: category ? { id: category.id, name: category.name } : undefined
+          };
+        });
+
+        this.products.set(enriched);
+        this.loading.set(false);
+      },
+      error: () => this.loading.set(false)
+    });
   }
 
   getProducts() {
@@ -56,7 +85,15 @@ export class ProductService {
       )
       .subscribe({
         next: (newProduct) => {
-          this.products.update(products => [...products, newProduct]);
+          const categories = this.categoryService.getCategories();
+          const category = categories().find(c => c.id === newProduct.categoryId);
+          const enrichedProduct = {
+            ...newProduct,
+            category: category ? { id: category.id, name: category.name } : undefined
+          };
+
+
+          this.products.update(products => [...products, enrichedProduct]);
           this.loading.set(false);
         },
         error: () => this.loading.set(false)
@@ -71,8 +108,15 @@ export class ProductService {
       )
       .subscribe({
         next: (updatedProduct) => {
+          const categories = this.categoryService.getCategories();
+          const category = categories().find(c => c.id === updatedProduct.categoryId);
+          const enrichedProduct = {
+            ...updatedProduct,
+            category: category ? { id: category.id, name: category.name } : undefined
+          };
+
           this.products.update(products => 
-            products.map(p => p.id === id ? updatedProduct : p)
+            products.map(p => p.id === id ? enrichedProduct : p)
           );
           this.loading.set(false);
         },

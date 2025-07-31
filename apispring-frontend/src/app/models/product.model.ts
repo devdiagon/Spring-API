@@ -3,4 +3,9 @@ export interface Product {
   name: string;
   description: string;
   price: number;
+  categoryId: number;
+  category?: {
+    id: number;
+    name: string;
+  };
 }

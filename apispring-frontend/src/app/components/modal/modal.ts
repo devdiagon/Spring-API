@@ -19,6 +19,7 @@ export class Modal {
   private categoryService = inject(CategoryService);
 
   formData: any = {};
+  categories = this.categoryService.getCategories();
   
   constructor() {
     effect(() => {
@@ -39,7 +40,6 @@ export class Modal {
   onSubmit() {
     if (this.modalService.modalType() === 'product') {
       const productData = this.formData as Product;
-      console.log("Data enviada",productData)
       if (this.modalService.isEditMode()) {
         this.productService.updateProduct(productData.id, productData);
       } else {
