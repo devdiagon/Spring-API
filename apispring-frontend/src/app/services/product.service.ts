@@ -2,7 +2,7 @@ import { Injectable, signal } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, forkJoin, throwError } from 'rxjs';
 import { Product } from '../models/product.model';
-import { environment } from '../environment';
+import { environment } from '../environments/environment';
 import { CategoryService } from './category.service';
 
 @Injectable({
@@ -29,22 +29,6 @@ export class ProductService {
     this.error.set(errorMessage);
     return throwError(() => new Error(errorMessage));
   }
-
-  /*
-  fetchProducts() {
-    this.loading.set(true);
-    this.http.get<Product[]>(this.apiUrl)
-      .pipe(
-        catchError(this.handleError.bind(this))
-      )
-      .subscribe({
-        next: (data) => {
-          this.products.set(data);
-          this.loading.set(false);
-        },
-        error: () => this.loading.set(false)
-      });
-  }*/
 
   fetchProducts() {
   this.loading.set(true);
