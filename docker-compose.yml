@@ -1,0 +1,57 @@
+version: '3.9'
+services:
+  db:
+    image: mysql:latest
+    container_name: sprgFT-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: admin123
+      MYSQL_DATABASE: apispring
+    networks:
+      - api-net
+    ports:
+      - "3306:3306"
+
+  api-products:
+    image: fredericktm/api-products:v0.0.5
+    container_name: c-api-products
+    restart: always
+    environment:
+      PORT: 8003
+      DB_HOST: sprgFT-db:3306
+    ports:
+      - "8081:8003"
+    depends_on:
+      - db
+    networks:
+      - api-net
+
+  api-categories:
+    image: fredericktm/api-categories:v0.0.4
+    container_name: c-api-categories
+    restart: always
+    environment:
+      PORT: 8004
+      DB_HOST: sprgFT-db:3306
+    ports:
+      - "8082:8004"
+    depends_on:
+      - db
+    networks:
+      - api-net
+
+  frontend:
+    image: fredericktm/app-front:v0.0.1
+    container_name: c-app-front
+    restart: always
+    ports:
+      - "8083:80"
+    depends_on:
+      - api-products
+      - api-categories
+    networks:
+      - api-net
+
+networks:
+  api-net:
+    driver: bridge
