@@ -41,7 +41,7 @@ services:
       - api-net
 
   frontend:
-    image: fredericktm/app-front:v0.0.1
+    image: fredericktm/app-front:v0.0.2
     container_name: c-app-front
     restart: always
     ports:
