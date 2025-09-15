@@ -43,13 +43,7 @@ docker compose down
 
 ***
 
-## Delploy en Railway
-
-La siguiente aplicación se encuentra cargada gracias a **Railway**, un servicio de host en la nube que permite crear varios servicios web de forma rápida y segura. El link para acceder a la aplicación es:
-
-https://app-front-production-1385.up.railway.app/
-
-### Procedimiento para despliegue en Railway
+## Procedimiento para despliegue en Railway
 
 Para ello se separaron en dos repositorios distintos los microservicios de productos y categorías, respectivamente:
 
